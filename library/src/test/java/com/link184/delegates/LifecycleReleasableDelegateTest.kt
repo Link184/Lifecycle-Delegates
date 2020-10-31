@@ -23,7 +23,6 @@ private const val CREATED_STATE = "created"
 class LifecycleReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner {
     private val lifecycleRegistry = lifecycle as LifecycleRegistry
 
-
     @After
     fun tearDown() {
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)

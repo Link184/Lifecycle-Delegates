@@ -31,7 +31,7 @@ class LifecycleInitializationDelegate<T>(
 
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
         if (event == initEvent) {
-            if (!initOnlyOnce || value == null){
+            if (!initOnlyOnce || value == null) {
                 value = initializer()
             }
         }
