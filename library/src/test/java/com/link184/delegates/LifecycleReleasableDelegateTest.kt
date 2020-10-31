@@ -17,13 +17,11 @@ private const val STOPPED_STATE = "stopped"
 private const val DESTROYED_STATE = "destroy"
 
 @RunWith(JUnit4::class)
-class LifecycleLazyReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner {
+class LifecycleReleasableDelegateTest: LifecycleOwner by TestLifecycleOwner {
     private val lifecycleRegistry = lifecycle as LifecycleRegistry
 
     private var currentState: String = ""
-    private val pauseableString by lazyPauseable({
-        INITIAL_STRING
-    }, {
+    private val pauseableString by pauseable(INITIAL_STRING, {
         currentState = PAUSED_STATE
     })
 
@@ -38,9 +36,7 @@ class LifecycleLazyReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner
         assertEquals(PAUSED_STATE, currentState)
     }
 
-    private val pauseableResumableString by lazyPauseableResumable({
-        INITIAL_STRING
-    }, {
+    private val pauseableResumableString by pauseableResumable(INITIAL_STRING, {
         currentState = PAUSED_STATE
     }, {
         currentState = RESUMED_STATE
@@ -58,7 +54,7 @@ class LifecycleLazyReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner
         assertEquals(PAUSED_STATE, currentState)
     }
 
-    private val resumeableString by lazyResumeable({ INITIAL_STRING }, {
+    private val resumeableString by resumeable(INITIAL_STRING, {
         currentState = RESUMED_STATE
     })
 
@@ -71,7 +67,7 @@ class LifecycleLazyReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner
         assertEquals(RESUMED_STATE, currentState)
     }
 
-    private val startableString by lazyStartable({ INITIAL_STRING }, {
+    private val startableString by startable(INITIAL_STRING, {
         currentState = STARTED_STATE
     })
 
@@ -84,7 +80,7 @@ class LifecycleLazyReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner
         assertEquals(STARTED_STATE, currentState)
     }
 
-    private val stoppableString by lazyStoppable({ INITIAL_STRING }, {
+    private val stoppableString by stoppable(INITIAL_STRING, {
         currentState = STOPPED_STATE
     })
 
@@ -99,7 +95,7 @@ class LifecycleLazyReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner
         assertEquals(STOPPED_STATE, currentState)
     }
 
-    private val stoppableStartableString by lazyStoppableStartable({ INITIAL_STRING }, {
+    private val stoppableStartableString by stoppableStartable(INITIAL_STRING, {
         currentState = STARTED_STATE
     }, {
         currentState = STOPPED_STATE
@@ -118,7 +114,7 @@ class LifecycleLazyReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner
         assertEquals(STOPPED_STATE, currentState)
     }
 
-    private val destroyableString by lazyDestroyable({ INITIAL_STRING }, {
+    private val destroyableString by destroyable(INITIAL_STRING, {
         currentState = DESTROYED_STATE
     })
 
