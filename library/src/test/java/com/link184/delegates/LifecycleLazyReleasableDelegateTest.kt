@@ -134,7 +134,7 @@ class LifecycleLazyReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner
         assertEquals(DESTROYED_STATE, currentState)
     }
 
-    private val creatableString by creatable(INITIAL_STRING, {
+    private val creatableString by lazyCreatable({ INITIAL_STRING }, {
         currentState = CREATED_STATE
     })
 
@@ -148,7 +148,7 @@ class LifecycleLazyReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner
         assertEquals(CREATED_STATE, currentState)
     }
 
-    private val creatableDestroyableString by creatableDestroyable(INITIAL_STRING, {
+    private val creatableDestroyableString by lazyCreatableDestroyable({ INITIAL_STRING }, {
         currentState = CREATED_STATE
     }, {
         currentState = DESTROYED_STATE
