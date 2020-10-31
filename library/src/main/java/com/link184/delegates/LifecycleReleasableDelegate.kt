@@ -6,6 +6,12 @@ import androidx.lifecycle.LifecycleOwner
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
+/**
+ * An field delegate to control the field initialization and resource release/close behavior.
+ * @param value the value of that field.
+ * @param actions an vararg of pairs of [Lifecycle.Event] associated to functions witch will
+ * be triggered when [Lifecycle.Event] will be triggered on the delegated field owner.
+ */
 class LifecycleReleasableDelegate<T>(
         private val value: T,
         private vararg val actions: Pair<Lifecycle.Event, LifecycleEventAction<T>>

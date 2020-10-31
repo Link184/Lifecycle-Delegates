@@ -1,4 +1,4 @@
-![logo](https://github.com/Link184/KidAdapter/blob/master/header.png)
+![logo](https://github.com/Link184/KidAdapter/blob/main/header.png)
 
 Kotlin lifecycle delegates
 ---
@@ -96,4 +96,4 @@ License
 -------
 See the [LICENSE][1] file for details.
 
-[1]: https://github.com/Link184/Lifecycle-Delegates/blob/master/LICENSE
+[1]: https://github.com/Link184/Lifecycle-Delegates/blob/main/LICENSE

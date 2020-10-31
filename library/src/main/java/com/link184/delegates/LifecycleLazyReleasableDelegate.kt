@@ -9,8 +9,15 @@ import kotlin.reflect.KProperty
 typealias LazyInitializer<T> = () -> T
 typealias LifecycleEventAction<T> = (T) -> Unit
 
+/**
+ * An field delegate to control the field initialization and resource release/close behavior.
+ * @param initializer the function which will initialize the field. The function will be called in
+ * a lazy form according to [kotlin.lazy] behavior.
+ * @param actions an vararg of pairs of [Lifecycle.Event] associated to functions witch will
+ * be triggered when [Lifecycle.Event] will be triggered on the delegated field owner.
+ */
 class LifecycleLazyReleasableDelegate<T>(
-        initializer: () -> T,
+        initializer: LazyInitializer<T>,
         private vararg val actions: Pair<Lifecycle.Event, LifecycleEventAction<T>>
 ): ReadOnlyProperty<LifecycleOwner, T>, LifecycleEventObserver {
     private var value: Lazy<T> = lazy(initializer)

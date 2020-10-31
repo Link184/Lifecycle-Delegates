@@ -6,6 +6,13 @@ import androidx.lifecycle.LifecycleOwner
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
+/**
+ * An delegate to control filed initialization at a specific android lifecycle event.
+ * @param initEvent the event when to init the field
+ * @param initOnlyOnce when true the field will be initialized only once. When false and
+ * the same event will be triggered the field will be re-initialized by [initializer]
+ * @param initializer the function which will initialize the field.
+ */
 class LifecycleInitializationDelegate<T>(
         private val initEvent: Lifecycle.Event,
         private val initOnlyOnce: Boolean = true,

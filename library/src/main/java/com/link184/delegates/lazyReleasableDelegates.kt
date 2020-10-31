@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.link184.delegates
 
 import androidx.lifecycle.Lifecycle

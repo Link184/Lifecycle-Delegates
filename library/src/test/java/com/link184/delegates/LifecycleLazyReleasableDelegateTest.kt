@@ -3,6 +3,7 @@ package com.link184.delegates
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
+import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -27,6 +28,11 @@ class LifecycleLazyReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner
     }, {
         currentState = PAUSED_STATE
     })
+
+    @After
+    fun tearDown() {
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    }
 
     @Test
     fun `test pauseable behavior`() {
