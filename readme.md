@@ -1,4 +1,4 @@
-![logo](https://github.com/Link184/KidAdapter/blob/main/header.png)
+![logo](https://github.com/Link184/Lifecycle-Delegates/blob/main/header.png)
 
 Kotlin lifecycle delegates
 ---

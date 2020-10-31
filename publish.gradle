@@ -1,0 +1,43 @@
+ext {
+    ext.resolveRepositoyUrl = {
+        if (isReleaseBuild()) {
+            return "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+        } else {
+            return "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+
+    ext.getUsername = {
+        if (hasProperty('SONATYPE_NEXUS_USERNAME')) {
+            return SONATYPE_NEXUS_USERNAME
+        }
+
+        def propertiesFile = project.rootProject.file('local.properties')
+        if (propertiesFile.exists()) {
+            Properties properties = new Properties()
+            properties.load(propertiesFile.newDataInputStream())
+            return properties.getProperty('SONATYPE_NEXUS_USERNAME')
+        } else {
+            return ""
+        }
+    }
+
+    ext.getPassword = {
+        if (hasProperty('SONATYPE_NEXUS_PASSWORD')) {
+            return SONATYPE_NEXUS_PASSWORD
+        }
+
+        def propertiesFile = project.rootProject.file('local.properties')
+        if (propertiesFile.exists()) {
+            Properties properties = new Properties()
+            properties.load(propertiesFile.newDataInputStream())
+            return properties.getProperty('SONATYPE_NEXUS_PASSWORD')
+        } else {
+            return ""
+        }
+    }
+}
+
+def isReleaseBuild() {
+    return !VERSION_NAME.contains("SNAPSHOT")
+}
