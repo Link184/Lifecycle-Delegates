@@ -6,6 +6,9 @@ Kotlin lifecycle delegates
 An light library to write android lifecycle aware fields. An comfortable way to avoid `lateinit`
 fields and lifecycle methods overriding in android components (fragments, activities).
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.link184/lifecycle-delegates/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.link184/kid-adapter)
+[![Build Status](https://api.travis-ci.com/Link184/Lifecycle-Delegates.svg?branch=master)](https://travis-ci.com/Link184/KidAdapter)
+
 ```gradle
     implementation 'com.link184:lifecycle-delegates:1.0.0'
 ```
