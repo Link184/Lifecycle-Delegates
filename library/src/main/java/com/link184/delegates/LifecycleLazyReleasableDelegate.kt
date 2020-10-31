@@ -17,9 +17,9 @@ typealias LifecycleEventAction<T> = (T) -> Unit
  * be triggered when [Lifecycle.Event] will be triggered on the delegated field owner.
  */
 class LifecycleLazyReleasableDelegate<T>(
-        initializer: LazyInitializer<T>,
-        private vararg val actions: Pair<Lifecycle.Event, LifecycleEventAction<T>>
-): ReadOnlyProperty<LifecycleOwner, T>, LifecycleEventObserver {
+    initializer: LazyInitializer<T>,
+    private vararg val actions: Pair<Lifecycle.Event, LifecycleEventAction<T>>
+) : ReadOnlyProperty<LifecycleOwner, T>, LifecycleEventObserver {
     private var value: Lazy<T> = lazy(initializer)
 
     override fun getValue(thisRef: LifecycleOwner, property: KProperty<*>): T {

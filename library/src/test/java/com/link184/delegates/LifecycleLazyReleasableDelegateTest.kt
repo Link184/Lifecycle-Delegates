@@ -135,7 +135,6 @@ class LifecycleLazyReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
 
-
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
         assertEquals(DESTROYED_STATE, currentState)
     }

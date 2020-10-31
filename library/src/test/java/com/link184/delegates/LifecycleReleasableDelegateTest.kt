@@ -18,7 +18,7 @@ private const val DESTROYED_STATE = "destroy"
 private const val CREATED_STATE = "created"
 
 @RunWith(JUnit4::class)
-class LifecycleReleasableDelegateTest: LifecycleOwner by TestLifecycleOwner {
+class LifecycleReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner {
     private val lifecycleRegistry = lifecycle as LifecycleRegistry
 
     private var currentState: String = ""
@@ -124,7 +124,6 @@ class LifecycleReleasableDelegateTest: LifecycleOwner by TestLifecycleOwner {
         assertEquals(INITIAL_STRING, destroyableString)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
-
 
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
         assertEquals(DESTROYED_STATE, currentState)

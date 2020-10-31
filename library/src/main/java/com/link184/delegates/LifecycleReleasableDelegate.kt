@@ -13,9 +13,9 @@ import kotlin.reflect.KProperty
  * be triggered when [Lifecycle.Event] will be triggered on the delegated field owner.
  */
 class LifecycleReleasableDelegate<T>(
-        private val value: T,
-        private vararg val actions: Pair<Lifecycle.Event, LifecycleEventAction<T>>
-): ReadOnlyProperty<LifecycleOwner, T>, LifecycleEventObserver {
+    private val value: T,
+    private vararg val actions: Pair<Lifecycle.Event, LifecycleEventAction<T>>
+) : ReadOnlyProperty<LifecycleOwner, T>, LifecycleEventObserver {
 
     override fun getValue(thisRef: LifecycleOwner, property: KProperty<*>): T {
         thisRef.lifecycle.addObserver(this)

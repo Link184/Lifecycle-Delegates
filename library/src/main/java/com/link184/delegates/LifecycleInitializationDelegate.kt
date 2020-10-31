@@ -14,10 +14,10 @@ import kotlin.reflect.KProperty
  * @param initializer the function which will initialize the field.
  */
 class LifecycleInitializationDelegate<T>(
-        private val initEvent: Lifecycle.Event,
-        private val initOnlyOnce: Boolean = true,
-        private val initializer: LazyInitializer<T>
-): ReadOnlyProperty<LifecycleOwner, T>, LifecycleEventObserver {
+    private val initEvent: Lifecycle.Event,
+    private val initOnlyOnce: Boolean = true,
+    private val initializer: LazyInitializer<T>
+) : ReadOnlyProperty<LifecycleOwner, T>, LifecycleEventObserver {
     private var value: T? = null
 
     override fun getValue(thisRef: LifecycleOwner, property: KProperty<*>): T {
