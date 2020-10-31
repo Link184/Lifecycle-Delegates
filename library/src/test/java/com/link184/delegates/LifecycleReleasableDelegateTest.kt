@@ -3,6 +3,8 @@ package com.link184.delegates
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
+import com.nhaarman.mockitokotlin2.mock
+import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -21,13 +23,20 @@ private const val CREATED_STATE = "created"
 class LifecycleReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner {
     private val lifecycleRegistry = lifecycle as LifecycleRegistry
 
-    private var currentState: String = ""
-    private val pauseableString by pauseable(INITIAL_STRING, {
-        currentState = PAUSED_STATE
-    })
+
+    @After
+    fun tearDown() {
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    }
 
     @Test
     fun `test pauseable behavior`() {
+        var currentState: String = ""
+
+        val pauseableString = pauseable(INITIAL_STRING, {
+            currentState = PAUSED_STATE
+        }).getValue(this, mock())
+
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
         assertEquals(INITIAL_STRING, pauseableString)
@@ -37,14 +46,15 @@ class LifecycleReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner {
         assertEquals(PAUSED_STATE, currentState)
     }
 
-    private val pauseableResumableString by pauseableResumable(INITIAL_STRING, {
-        currentState = PAUSED_STATE
-    }, {
-        currentState = RESUMED_STATE
-    })
-
     @Test
     fun `test pauseable resumable behavior`() {
+        var currentState: String = ""
+
+        val pauseableResumableString = pauseableResumable(INITIAL_STRING, {
+            currentState = PAUSED_STATE
+        }, {
+            currentState = RESUMED_STATE
+        }).getValue(this, mock())
         assertEquals(INITIAL_STRING, pauseableResumableString)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -55,12 +65,13 @@ class LifecycleReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner {
         assertEquals(PAUSED_STATE, currentState)
     }
 
-    private val resumeableString by resumeable(INITIAL_STRING, {
-        currentState = RESUMED_STATE
-    })
-
     @Test
     fun `test resumeable behavior`() {
+        var currentState: String = ""
+        val resumeableString = resumeable(INITIAL_STRING, {
+            currentState = RESUMED_STATE
+        }).getValue(this, mock())
+
         assertEquals(INITIAL_STRING, resumeableString)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -68,12 +79,13 @@ class LifecycleReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner {
         assertEquals(RESUMED_STATE, currentState)
     }
 
-    private val startableString by startable(INITIAL_STRING, {
-        currentState = STARTED_STATE
-    })
-
     @Test
     fun `test startable behavior`() {
+        var currentState: String = ""
+        val startableString = startable(INITIAL_STRING, {
+            currentState = STARTED_STATE
+        }).getValue(this, mock())
+
         assertEquals(INITIAL_STRING, startableString)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -81,12 +93,13 @@ class LifecycleReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner {
         assertEquals(STARTED_STATE, currentState)
     }
 
-    private val stoppableString by stoppable(INITIAL_STRING, {
-        currentState = STOPPED_STATE
-    })
-
     @Test
     fun `test stoppable behavior`() {
+        var currentState: String = ""
+        val stoppableString = stoppable(INITIAL_STRING, {
+            currentState = STOPPED_STATE
+        }).getValue(this, mock())
+
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
 
@@ -96,14 +109,15 @@ class LifecycleReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner {
         assertEquals(STOPPED_STATE, currentState)
     }
 
-    private val stoppableStartableString by stoppableStartable(INITIAL_STRING, {
-        currentState = STARTED_STATE
-    }, {
-        currentState = STOPPED_STATE
-    })
-
     @Test
     fun `test stoppable startable behavior`() {
+        var currentState: String = ""
+        val stoppableStartableString = stoppableStartable(INITIAL_STRING, {
+            currentState = STARTED_STATE
+        }, {
+            currentState = STOPPED_STATE
+        }).getValue(this, mock())
+
         assertEquals(INITIAL_STRING, stoppableStartableString)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_START)
@@ -115,12 +129,13 @@ class LifecycleReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner {
         assertEquals(STOPPED_STATE, currentState)
     }
 
-    private val destroyableString by destroyable(INITIAL_STRING, {
-        currentState = DESTROYED_STATE
-    })
-
     @Test
     fun `test destroyable behavior`() {
+        var currentState: String = ""
+        val destroyableString = destroyable(INITIAL_STRING, {
+            currentState = DESTROYED_STATE
+        }).getValue(this, mock())
+
         assertEquals(INITIAL_STRING, destroyableString)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -129,12 +144,13 @@ class LifecycleReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner {
         assertEquals(DESTROYED_STATE, currentState)
     }
 
-    private val creatableString by creatable(INITIAL_STRING, {
-        currentState = CREATED_STATE
-    })
-
     @Test
     fun `test creatable behavior`() {
+        var currentState: String = ""
+        val creatableString = creatable(INITIAL_STRING, {
+            currentState = CREATED_STATE
+        }).getValue(this, mock())
+
         assertEquals(INITIAL_STRING, creatableString)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -143,14 +159,15 @@ class LifecycleReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner {
         assertEquals(CREATED_STATE, currentState)
     }
 
-    private val creatableDestroyableString by creatableDestroyable(INITIAL_STRING, {
-        currentState = CREATED_STATE
-    }, {
-        currentState = DESTROYED_STATE
-    })
-
     @Test
     fun `test creatable destroyable behavior`() {
+        var currentState: String = ""
+        val creatableDestroyableString = creatableDestroyable(INITIAL_STRING, {
+            currentState = CREATED_STATE
+        }, {
+            currentState = DESTROYED_STATE
+        }).getValue(this, mock())
+
         assertEquals(INITIAL_STRING, creatableDestroyableString)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)

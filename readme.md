@@ -21,6 +21,9 @@ fields and lifecycle methods overriding in android components (fragments, activi
 ```
 
 #### Lifecycle lazy releasable:
+
+Note: it behaves the same as in `kotlin.lazy()` which means that all callback params will NOT be called
+until the field is not called.
 ```kotlin
     // pauseablePlayer will be initialized when the field will be called for first time, the same as kotlin.lazy()
     // onPause callback will be ignored in case pauseablePlayer would not have been used before

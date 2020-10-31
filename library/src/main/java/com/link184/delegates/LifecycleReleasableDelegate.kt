@@ -13,9 +13,13 @@ import kotlin.reflect.KProperty
  * be triggered when [Lifecycle.Event] will be triggered on the delegated field owner.
  */
 class LifecycleReleasableDelegate<T>(
+    lifecycle: Lifecycle,
     private val value: T,
     private vararg val actions: Pair<Lifecycle.Event, LifecycleEventAction<T>>
 ) : ReadOnlyProperty<LifecycleOwner, T>, LifecycleEventObserver {
+    init {
+        lifecycle.addObserver(this)
+    }
 
     override fun getValue(thisRef: LifecycleOwner, property: KProperty<*>): T {
         thisRef.lifecycle.addObserver(this)
@@ -23,7 +27,7 @@ class LifecycleReleasableDelegate<T>(
     }
 
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-        actions.firstOrNull {
+        actions.find {
             it.first == event
         }
                 ?.second?.invoke(value)
