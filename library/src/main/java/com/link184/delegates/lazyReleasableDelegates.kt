@@ -3,8 +3,16 @@ package com.link184.delegates
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 
+fun <T> LifecycleOwner.lazyCreatable(initializer: LazyInitializer<T>, onCreate: LifecycleEventAction<T>): LifecycleLazyReleasableDelegate<T> {
+    return LifecycleLazyReleasableDelegate(initializer, Lifecycle.Event.ON_CREATE to onCreate)
+}
+
 fun <T> LifecycleOwner.lazyDestroyable(initializer: LazyInitializer<T>, onDestroy: LifecycleEventAction<T>): LifecycleLazyReleasableDelegate<T> {
     return LifecycleLazyReleasableDelegate(initializer, Lifecycle.Event.ON_DESTROY to onDestroy)
+}
+
+fun <T> LifecycleOwner.lazyCreatableDestroyable(initializer: LazyInitializer<T>, onCreate: LifecycleEventAction<T>, onDestroy: LifecycleEventAction<T>): LifecycleLazyReleasableDelegate<T> {
+    return LifecycleLazyReleasableDelegate(initializer, Lifecycle.Event.ON_CREATE to onCreate, Lifecycle.Event.ON_DESTROY to onDestroy)
 }
 
 fun <T> LifecycleOwner.lazyPauseable(initializer: LazyInitializer<T>, onPause: LifecycleEventAction<T>) : LifecycleLazyReleasableDelegate<T> {

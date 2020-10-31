@@ -15,6 +15,7 @@ private const val RESUMED_STATE = "resumed"
 private const val STARTED_STATE = "started"
 private const val STOPPED_STATE = "stopped"
 private const val DESTROYED_STATE = "destroy"
+private const val CREATED_STATE = "created"
 
 @RunWith(JUnit4::class)
 class LifecycleReleasableDelegateTest: LifecycleOwner by TestLifecycleOwner {
@@ -124,6 +125,38 @@ class LifecycleReleasableDelegateTest: LifecycleOwner by TestLifecycleOwner {
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
 
+
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+        assertEquals(DESTROYED_STATE, currentState)
+    }
+
+    private val creatableString by creatable(INITIAL_STRING, {
+        currentState = CREATED_STATE
+    })
+
+    @Test
+    fun `test creatable behavior`() {
+        assertEquals(INITIAL_STRING, creatableString)
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
+
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+        assertEquals(CREATED_STATE, currentState)
+    }
+
+    private val creatableDestroyableString by creatableDestroyable(INITIAL_STRING, {
+        currentState = CREATED_STATE
+    }, {
+        currentState = DESTROYED_STATE
+    })
+
+    @Test
+    fun `test creatable destroyable behavior`() {
+        assertEquals(INITIAL_STRING, creatableDestroyableString)
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
+        lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
+
+        assertEquals(CREATED_STATE, currentState)
 
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_DESTROY)
         assertEquals(DESTROYED_STATE, currentState)
