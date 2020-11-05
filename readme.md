@@ -10,7 +10,7 @@ fields and lifecycle methods overriding in android components (fragments, activi
 [![Build Status](https://travis-ci.com/Link184/Lifecycle-Delegates.svg?branch=main)](https://travis-ci.com/Link184/Lifecycle-Delegates)
 
 ```gradle
-    implementation 'com.link184:lifecycle-delegates:1.0.0'
+    implementation 'com.link184:lifecycle-delegates:1.0.1'
 ```
 
 #### Lifecycle aware initializers:
@@ -25,8 +25,8 @@ fields and lifecycle methods overriding in android components (fragments, activi
 
 #### Lifecycle lazy releasable:
 
-Note: it behaves the same as in `kotlin.lazy()` which means that all callback params will NOT be called
-until the field is not called.
+Note: it behaves the same as `kotlin.lazy()` which means that all callbacks will NOT be called
+until the field is not called for the first time.
 ```kotlin
     // pauseablePlayer will be initialized when the field will be called for first time, the same as kotlin.lazy()
     // onPause callback will be ignored in case pauseablePlayer would not have been used before
