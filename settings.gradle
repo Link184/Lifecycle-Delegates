@@ -1,2 +1,2 @@
 include ':library'
-rootProject.name = "Android delegates"
+rootProject.name = "Lifecycle delegates"
