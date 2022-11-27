@@ -10,7 +10,7 @@ fields and lifecycle methods overriding in android components (fragments, activi
 [![Build Status](https://travis-ci.com/Link184/Lifecycle-Delegates.svg?branch=main)](https://travis-ci.com/Link184/Lifecycle-Delegates)
 
 ```gradle
-    implementation 'com.link184:lifecycle-delegates:1.0.1'
+    implementation 'com.link184:lifecycle-delegates:1.1.0'
 ```
 
 #### Lifecycle aware initializers:
@@ -55,7 +55,7 @@ until the field is not called for the first time.
 
 #### Lifecycle non-lazy releasable:
 
-The same as lazy releasable delegates but without `kotlin.lazy` behaviour
+The same as lazy releasable delegates without `kotlin.lazy` behaviour
 
 ```kotlin
     private val pausableString by pausable(VideoPlayer.create(...), {
