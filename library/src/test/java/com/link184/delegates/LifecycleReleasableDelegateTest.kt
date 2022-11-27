@@ -30,16 +30,16 @@ class LifecycleReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner(ini
     }
 
     @Test
-    fun `test pauseable behavior`() {
+    fun `test pausable behavior`() {
         var currentState = ""
 
-        val pauseableString = pauseable(INITIAL_STRING) {
+        val pausableString = pausable(INITIAL_STRING) {
             currentState = PAUSED_STATE
         }.getValue(this, mock())
 
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
-        assertEquals(INITIAL_STRING, pauseableString)
+        assertEquals(INITIAL_STRING, pausableString)
 
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE)
 
@@ -47,15 +47,15 @@ class LifecycleReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner(ini
     }
 
     @Test
-    fun `test pauseable resumable behavior`() {
+    fun `test pausable resumable behavior`() {
         var currentState: String = ""
 
-        val pauseableResumableString = pauseableResumable(INITIAL_STRING, {
+        val pausableResumableString = pausableResumable(INITIAL_STRING, {
             currentState = PAUSED_STATE
         }, {
             currentState = RESUMED_STATE
         }).getValue(this, mock())
-        assertEquals(INITIAL_STRING, pauseableResumableString)
+        assertEquals(INITIAL_STRING, pausableResumableString)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
 

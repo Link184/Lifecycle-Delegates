@@ -76,7 +76,7 @@ fun <T> LifecycleOwner.lazyCreatableDestroyable(initializer: LazyInitializer<T>,
  * event will occur. The callback will NOT be called if the field was not called before
  * [Lifecycle.Event.ON_PAUSE] events. It behaves the same as [kotlin.lazy]
  */
-fun <T> LifecycleOwner.lazyPauseable(initializer: LazyInitializer<T>, onPause: LifecycleEventAction<T>): LifecycleLazyReleasableDelegate<T> {
+fun <T> LifecycleOwner.lazyPausable(initializer: LazyInitializer<T>, onPause: LifecycleEventAction<T>): LifecycleLazyReleasableDelegate<T> {
     return LifecycleLazyReleasableDelegate(lifecycle, initializer, Lifecycle.Event.ON_PAUSE to onPause)
 }
 
@@ -115,7 +115,7 @@ fun <T> LifecycleOwner.lazyResumeable(initializer: LazyInitializer<T>, onResume:
  * event will occur. The callback will NOT be called if the field was not called before
  * [Lifecycle.Event.ON_RESUME] events. It behaves the same as [kotlin.lazy]
  */
-fun <T> LifecycleOwner.lazyPauseableResumable(initializer: LazyInitializer<T>, onPause: LifecycleEventAction<T>, onResume: LifecycleEventAction<T>): LifecycleLazyReleasableDelegate<T> {
+fun <T> LifecycleOwner.lazyPausableResumable(initializer: LazyInitializer<T>, onPause: LifecycleEventAction<T>, onResume: LifecycleEventAction<T>): LifecycleLazyReleasableDelegate<T> {
     return LifecycleLazyReleasableDelegate(lifecycle, initializer, Lifecycle.Event.ON_PAUSE to onPause, Lifecycle.Event.ON_RESUME to onResume)
 }
 

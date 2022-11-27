@@ -36,7 +36,7 @@ fun <T> LifecycleOwner.creatableDestroyable(value: T, onCreate: LifecycleEventAc
  * @param value the value in fact
  * @param onPause the callback which will be invoked when [Lifecycle.Event.ON_PAUSE] event will occur.
  */
-fun <T> LifecycleOwner.pauseable(value: T, onPause: LifecycleEventAction<T>): LifecycleReleasableDelegate<T> {
+fun <T> LifecycleOwner.pausable(value: T, onPause: LifecycleEventAction<T>): LifecycleReleasableDelegate<T> {
     return LifecycleReleasableDelegate(lifecycle, value, Lifecycle.Event.ON_PAUSE to onPause)
 }
 
@@ -55,7 +55,7 @@ fun <T> LifecycleOwner.resumeable(value: T, onResume: LifecycleEventAction<T>): 
  * @param onPause the callback which will be invoked when [Lifecycle.Event.ON_PAUSE] event will occur.
  * @param onResume the callback which will be invoked when [Lifecycle.Event.ON_RESUME] event will occur.
  */
-fun <T> LifecycleOwner.pauseableResumable(value: T, onPause: LifecycleEventAction<T>, onResume: LifecycleEventAction<T>): LifecycleReleasableDelegate<T> {
+fun <T> LifecycleOwner.pausableResumable(value: T, onPause: LifecycleEventAction<T>, onResume: LifecycleEventAction<T>): LifecycleReleasableDelegate<T> {
     return LifecycleReleasableDelegate(lifecycle, value, Lifecycle.Event.ON_PAUSE to onPause, Lifecycle.Event.ON_RESUME to onResume)
 }
 

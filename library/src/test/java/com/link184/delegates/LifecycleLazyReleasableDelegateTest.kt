@@ -24,7 +24,7 @@ class LifecycleLazyReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner
     private val lifecycleRegistry = lifecycle as LifecycleRegistry
 
     private var currentState: String = ""
-    private val pauseableString by lazyPauseable({
+    private val pausableString by lazyPausable({
         INITIAL_STRING
     }, {
         currentState = PAUSED_STATE
@@ -36,17 +36,17 @@ class LifecycleLazyReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner
     }
 
     @Test
-    fun `test pauseable behavior`() {
+    fun `test pausable behavior`() {
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
-        assertEquals(INITIAL_STRING, pauseableString)
+        assertEquals(INITIAL_STRING, pausableString)
 
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_PAUSE)
 
         assertEquals(PAUSED_STATE, currentState)
     }
 
-    private val pauseableResumableString by lazyPauseableResumable({
+    private val pausableResumableString by lazyPausableResumable({
         INITIAL_STRING
     }, {
         currentState = PAUSED_STATE
@@ -55,8 +55,8 @@ class LifecycleLazyReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner
     })
 
     @Test
-    fun `test pauseable resumable behavior`() {
-        assertEquals(INITIAL_STRING, pauseableResumableString)
+    fun `test pausable resumable behavior`() {
+        assertEquals(INITIAL_STRING, pausableResumableString)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
 

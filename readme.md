@@ -28,15 +28,15 @@ fields and lifecycle methods overriding in android components (fragments, activi
 Note: it behaves the same as `kotlin.lazy()` which means that all callbacks will NOT be called
 until the field is not called for the first time.
 ```kotlin
-    // pauseablePlayer will be initialized when the field will be called for first time, the same as kotlin.lazy()
-    // onPause callback will be ignored in case pauseablePlayer would not have been used before
-    private val pauseablePlayer by lazyPauseable({
+    // pausablePlayer will be initialized when the field will be called for first time, the same as kotlin.lazy()
+    // onPause callback will be ignored in case pausablePlayer would not have been used before
+    private val pausablePlayer by lazyPausable({
         VideoPlayer.create(...)
     }, onPause = {
         it.pause()
     })
 
-    private val pauseableResumablePlayer by lazyPauseableResumable({
+    private val pausableResumablePlayer by lazyPausableResumable({
         VideoPlayer.create(...).also { it.play() }
     }, onPause = {
         it.pause()
@@ -58,11 +58,11 @@ until the field is not called for the first time.
 The same as lazy releasable delegates but without `kotlin.lazy` behaviour
 
 ```kotlin
-    private val pauseableString by pauseable(VideoPlayer.create(...), {
+    private val pausableString by pausable(VideoPlayer.create(...), {
         it.pause
     })
 
-    private val pauseableResumablePlayer by pauseableResumable(VideoPlayer.create(...), onPause = {
+    private val pausableResumablePlayer by pausableResumable(VideoPlayer.create(...), onPause = {
         it.pause()
     }, onResume = {
         it.play()
