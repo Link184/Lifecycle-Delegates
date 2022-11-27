@@ -3,6 +3,7 @@ package com.link184.delegates
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
+import androidx.lifecycle.testing.TestLifecycleOwner
 import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -19,7 +20,7 @@ private const val DESTROYED_STATE = "destroy"
 private const val CREATED_STATE = "created"
 
 @RunWith(JUnit4::class)
-class LifecycleLazyReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner {
+class LifecycleLazyReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner(initialState = Lifecycle.State.INITIALIZED) {
     private val lifecycleRegistry = lifecycle as LifecycleRegistry
 
     private var currentState: String = ""

@@ -6,11 +6,13 @@ plugins {
 }
 
 android {
-    compileSdkVersion 32
+    namespace = "com.link184.delegates"
+
+    compileSdkVersion 33
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 32
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 
@@ -25,15 +27,6 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-}
-
-mavenPublish {
-    androidVariantToPublish "release"
-}
-
-task androidSourcesJar(type: Jar) {
-    classifier = 'sources'
-    from android.sourceSets.main.java.srcDirs
 }
 
 configurations {
@@ -62,12 +55,14 @@ dependencies {
     ktlint "com.github.shyiko:ktlint:0.29.0"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
     testImplementation "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    testImplementation 'androidx.lifecycle:lifecycle-runtime-testing:2.5.1'
 
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 }

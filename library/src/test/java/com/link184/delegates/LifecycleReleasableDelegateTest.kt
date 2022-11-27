@@ -3,6 +3,7 @@ package com.link184.delegates
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
+import androidx.lifecycle.testing.TestLifecycleOwner
 import com.nhaarman.mockitokotlin2.mock
 import org.junit.After
 import org.junit.Test
@@ -20,7 +21,7 @@ private const val DESTROYED_STATE = "destroy"
 private const val CREATED_STATE = "created"
 
 @RunWith(JUnit4::class)
-class LifecycleReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner {
+class LifecycleReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner(initialState = Lifecycle.State.INITIALIZED) {
     private val lifecycleRegistry = lifecycle as LifecycleRegistry
 
     @After
@@ -30,11 +31,11 @@ class LifecycleReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner {
 
     @Test
     fun `test pauseable behavior`() {
-        var currentState: String = ""
+        var currentState = ""
 
-        val pauseableString = pauseable(INITIAL_STRING, {
+        val pauseableString = pauseable(INITIAL_STRING) {
             currentState = PAUSED_STATE
-        }).getValue(this, mock())
+        }.getValue(this, mock())
 
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -67,9 +68,9 @@ class LifecycleReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner {
     @Test
     fun `test resumeable behavior`() {
         var currentState: String = ""
-        val resumeableString = resumeable(INITIAL_STRING, {
+        val resumeableString = resumeable(INITIAL_STRING) {
             currentState = RESUMED_STATE
-        }).getValue(this, mock())
+        }.getValue(this, mock())
 
         assertEquals(INITIAL_STRING, resumeableString)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -81,9 +82,9 @@ class LifecycleReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner {
     @Test
     fun `test startable behavior`() {
         var currentState: String = ""
-        val startableString = startable(INITIAL_STRING, {
+        val startableString = startable(INITIAL_STRING) {
             currentState = STARTED_STATE
-        }).getValue(this, mock())
+        }.getValue(this, mock())
 
         assertEquals(INITIAL_STRING, startableString)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -95,9 +96,9 @@ class LifecycleReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner {
     @Test
     fun `test stoppable behavior`() {
         var currentState: String = ""
-        val stoppableString = stoppable(INITIAL_STRING, {
+        val stoppableString = stoppable(INITIAL_STRING) {
             currentState = STOPPED_STATE
-        }).getValue(this, mock())
+        }.getValue(this, mock())
 
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -131,9 +132,9 @@ class LifecycleReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner {
     @Test
     fun `test destroyable behavior`() {
         var currentState: String = ""
-        val destroyableString = destroyable(INITIAL_STRING, {
+        val destroyableString = destroyable(INITIAL_STRING) {
             currentState = DESTROYED_STATE
-        }).getValue(this, mock())
+        }.getValue(this, mock())
 
         assertEquals(INITIAL_STRING, destroyableString)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -146,9 +147,9 @@ class LifecycleReleasableDelegateTest : LifecycleOwner by TestLifecycleOwner {
     @Test
     fun `test creatable behavior`() {
         var currentState: String = ""
-        val creatableString = creatable(INITIAL_STRING, {
+        val creatableString = creatable(INITIAL_STRING) {
             currentState = CREATED_STATE
-        }).getValue(this, mock())
+        }.getValue(this, mock())
 
         assertEquals(INITIAL_STRING, creatableString)
         lifecycleRegistry.handleLifecycleEvent(Lifecycle.Event.ON_CREATE)

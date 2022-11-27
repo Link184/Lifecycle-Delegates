@@ -1,9 +1,12 @@
 package com.link184.delegates
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
+import androidx.lifecycle.testing.TestLifecycleOwner
 import org.junit.After
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -11,9 +14,12 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
 @RunWith(JUnit4::class)
-class LifecycleInitializationDelegateTest : LifecycleOwner by TestLifecycleOwner {
+class LifecycleInitializationDelegateTest : LifecycleOwner by TestLifecycleOwner(initialState = Lifecycle.State.INITIALIZED) {
     private val lifecycleRegistry = lifecycle as LifecycleRegistry
     private var currentState: Lifecycle.Event? = null
+
+    @get:Rule
+    val instantTaskExecutorRule = InstantTaskExecutorRule()
 
     private val onCreateInitializedString by onCreate {
         currentState = Lifecycle.Event.ON_CREATE
@@ -27,7 +33,7 @@ class LifecycleInitializationDelegateTest : LifecycleOwner by TestLifecycleOwner
 
     @Test
     fun `test onCreate initializer`() {
-        assertFailsWith<IllegalStateException>("the field call should fall with exception because the field should be uninitialized before corresponding event") {
+        assertFailsWith<IllegalStateException>("the field call should fall with exception because the field should not be initialized before corresponding event") {
             onCreateInitializedString
         }
 
