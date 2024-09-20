@@ -8,11 +8,11 @@ plugins {
 android {
     namespace = "com.link184.delegates"
 
-    compileSdkVersion 33
+    compileSdk 35
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 33
+        targetSdk 35
         versionCode 1
         versionName "1.0"
 
@@ -55,14 +55,14 @@ dependencies {
     ktlint "com.github.shyiko:ktlint:0.29.0"
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
     testImplementation "org.jetbrains.kotlin:kotlin-test:$kotlin_version"
-    testImplementation 'androidx.arch.core:core-testing:2.1.0'
-    testImplementation 'androidx.lifecycle:lifecycle-runtime-testing:2.5.1'
+    testImplementation 'androidx.arch.core:core-testing:2.2.0'
+    testImplementation 'androidx.lifecycle:lifecycle-runtime-testing:2.8.6'
 
-    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 }

@@ -10,7 +10,7 @@ fields and lifecycle methods overriding in android components (fragments, activi
 [![Build Status](https://travis-ci.com/Link184/Lifecycle-Delegates.svg?branch=main)](https://travis-ci.com/Link184/Lifecycle-Delegates)
 
 ```gradle
-    implementation 'com.link184:lifecycle-delegates:1.1.0'
+    implementation 'com.link184:lifecycle-delegates:1.1.2'
 ```
 
 #### Lifecycle aware initializers:
